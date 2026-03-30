@@ -16,7 +16,7 @@ const energeticos = [
   {id:'monster_original',name:'Monster Original 473ml',price:9,image:'images/monster/monster_original-473.png'},
   {id:'monster_absolutely_zero',name:'Monster Absolutely Zero 473ml',price:9,image:'images/monster/monster_absolutelyzero-473.png'},
   {id:'monster_ultra_white',name:'Monster Ultra White 473ml',price:9,image:'images/monster/monster_ultrawhite-473.png'},
-  {id:'monster_mango_loco',name:'Monster Juice Mango Loco 473ml',price:9,image:'images/monster/monster_mangoLoco-473.png'},
+  {id:'monster_mango_loco',name:'Monster Juice Mango Loco 473ml',price:9,image:'images/monster/monster_mangoloco-473.png'},
 
   {id:'baly_tradicional',name:'Baly Tradicional 473ml',price:8,image:'images/baly/baly_tradicional-473.png'},
   {id:'baly_tropical',name:'Baly Tropical 473ml',price:8,image:'images/baly/baly_tropical-473.png'},
