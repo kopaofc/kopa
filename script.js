@@ -109,7 +109,7 @@ function renderProducts(containerId,title,icon,products,stateKey){
         </div>
       `;
     });
-    html += `</div><h3 style="margin-top:1rem;">Ou monte seu combo personalizado:</h3>`;
+    html += `</div><h3 style="margin-top:1rem;">Ou monte seu combo personalizado:</h3><br>`;
   }
   html += `<div class="grid" id="${containerId}-grid"></div>`;
   sec.innerHTML = html;
