@@ -361,53 +361,104 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  const nextBtn = document.getElementById('next-btn');
-  if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      if (currentStep < 3) {
-        const totalDoses = getTotalDoses();
-        if (currentStep === 0 && totalDoses === 0) {
-          showToast('Selecione pelo menos uma dose');
-          return;
-        }
-        if (currentStep === 1) {
-          const totalEn = Object.values(state.energeticos).reduce((a,b)=>a+b,0);
-          if (totalEn < totalDoses) {
-            showToast(`Selecione pelo menos ${totalDoses} energético(s)`);
-            return;
-          }
-        }
-        if (currentStep === 2) {
-          const totalIce = Object.values(state.ice).reduce((a,b)=>a+b,0);
-          if (totalIce < totalDoses && !(state.ice['sem'] > 0)) {
-            showToast(`Selecione pelo menos ${totalDoses} gelo(s) saborizado(s) ou "Sem gelo"`);
-            return;
-          }
-        }
-        currentStep++;
-        update();
-      }
-    });
-  }
+const nextBtn = document.getElementById('next-btn');
 
-  const waBtn = document.getElementById('wa-btn');
-  if (waBtn) {
-    waBtn.addEventListener('click', () => {
-      const name = document.getElementById('inp-name').value.trim();
-      const address = document.getElementById('inp-bairro').value.trim();
-      if (!name || !address) {
-        showToast('Preencha seu nome e endereço');
+if (nextBtn) {
+  nextBtn.addEventListener('click', () => {
+    if (currentStep < 3) {
+      const totalDoses = getTotalDoses();
+
+      if (currentStep === 0 && totalDoses === 0) {
+        showToast('Selecione pelo menos uma dose');
         return;
       }
-      let msg = `Olá! Gostaria de fazer um pedido:\n\n`;
-      for(const[id,qty]of Object.entries(state.doses)){if(qty>0){const p=doses.find(d=>d.id===id);if(p)msg+=`${qty}x ${p.name} - R$ ${(p.price*qty).toFixed(2)}\n`;}}
-      for(const[id,qty]of Object.entries(state.energeticos)){if(qty>0){const p=energeticos.find(d=>d.id===id);if(p)msg+=`${qty}x ${p.name} - R$ ${(p.price*qty).toFixed(2)}\n`;}}
-      for(const[id,qty]of Object.entries(state.ice)){if(qty>0){const p=iceFlavors.find(f=>f.id===id);if(p)msg+=`${qty}x ${p.name} - R$ ${(p.price*qty).toFixed(2)}\n`;}}
-      msg += `\nTotal: R$ ${getTotal().toFixed(2)}\n\nNome: ${name}\nEndereço: ${address}`;
-      const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
-      window.open(url, '_blank');
-    });
-  }
+
+      if (currentStep === 1) {
+        const totalEn = Object.values(state.energeticos)
+          .reduce((a, b) => a + b, 0);
+
+        if (totalEn < totalDoses) {
+          showToast(`Selecione pelo menos ${totalDoses} energético(s)`);
+          return;
+        }
+      }
+
+      if (currentStep === 2) {
+        const totalIce = Object.entries(state.ice)
+          .filter(([key]) => key !== 'sem') // ignora "sem gelo"
+          .reduce((acc, [, val]) => acc + val, 0);
+
+        const semGelo = state.ice['sem'] > 0;
+
+        if (totalIce === 0 && !semGelo) {
+          showToast('Selecione pelo menos 1 gelo saborizado ou "Sem gelo"');
+          return;
+        }
+      }
+
+      currentStep++;
+      update();
+    }
+  });
+}
+
+const waBtn = document.getElementById('wa-btn');
+
+if (waBtn) {
+  waBtn.addEventListener('click', () => {
+    const name = document.getElementById('inp-name').value.trim();
+    const address = document.getElementById('inp-bairro').value.trim();
+
+    if (!name || !address) {
+      showToast('Preencha seu nome e endereço');
+      return;
+    }
+
+    const orderId = Date.now().toString().slice(-4);
+    let msg = `📋 *KOPA - PEDIDO #${orderId}*\n\n`;
+
+    msg += `🧾 *Itens do pedido:*\n`;
+
+    // Doses
+    for (const [id, qty] of Object.entries(state.doses)) {
+      if (qty > 0) {
+        const p = doses.find(d => d.id === id);
+        if (p) {
+          msg += `• ${qty}x ${p.name} — R$ ${(p.price * qty).toFixed(2)}\n`;
+        }
+      }
+    }
+
+    // Energéticos
+    for (const [id, qty] of Object.entries(state.energeticos)) {
+      if (qty > 0) {
+        const p = energeticos.find(d => d.id === id);
+        if (p) {
+          msg += `• ${qty}x ${p.name} — R$ ${(p.price * qty).toFixed(2)}\n`;
+        }
+      }
+    }
+
+    // Gelo
+    for (const [id, qty] of Object.entries(state.ice)) {
+      if (qty > 0) {
+        const p = iceFlavors.find(f => f.id === id);
+        if (p) {
+          msg += `• ${qty}x ${p.name} — R$ ${(p.price * qty).toFixed(2)}\n`;
+        }
+      }
+    }
+
+    msg += `\n💰 *Total:* R$ ${getTotal().toFixed(2)}\n\n`;
+
+    msg += `👤 *Dados do cliente:*\n`;
+    msg += `Nome: ${name}\n`;
+    msg += `Endereço: ${address}`;
+
+    const url = `https://api.whatsapp.com/send/?phone=${WHATSAPP_NUMBER}&text=${encodeURIComponent(msg)}&type=phone_number&app_absent=0`;
+    window.open(url, '_blank');
+  });
+}
 
   update();
 });
