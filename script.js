@@ -1,7 +1,9 @@
 const WHATSAPP_NUMBER = '5554996472916';
 
 const doses = [
-  {id:'jackdaniels',name:'Jack Daniel\'s',price:15,image:'images/jackdaniels.jpg',popular:true},
+  {id:'jackdaniels',name:'Jack Daniel\'s',price:15,image:'images/doses/jackdaniels-50.png',popular:true},
+  {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple',price:15,image:'images/doses/jackdaniels_macaverde-50.png'},
+
   {id:'raiska',name:'Raíska',price:10,image:'images/raiska.jpg'},
   {id:'absolut',name:'Absolut Vodka',price:12,image:'images/absolut.jpg'},
   {id:'tanqueray',name:'Tanqueray Gin',price:14,image:'images/tanqueray.jpg'},
@@ -307,32 +309,71 @@ function update(){
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-  const locationBtn = document.getElementById('location-btn');
-  if (locationBtn) {
-    locationBtn.addEventListener('click', () => {
-      if (!navigator.geolocation) {
-        showToast('Geolocalização não suportada pelo navegador');
-        return;
-      }
-      locationBtn.disabled = true;
-      locationBtn.textContent = 'Obtendo localização...';
-      navigator.geolocation.getCurrentPosition(async (position) => {
+const locationBtn = document.getElementById('location-btn');
+
+if (locationBtn) {
+  locationBtn.addEventListener('click', () => {
+    if (!navigator.geolocation) {
+      showToast('Geolocalização não suportada pelo navegador');
+      return;
+    }
+
+    locationBtn.disabled = true;
+    locationBtn.textContent = 'Obtendo localização...';
+
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
         const { latitude, longitude } = position.coords;
+
         try {
-          const response = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`);
+          const response = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}&addressdetails=1`
+          );
+
+          if (!response.ok) throw new Error('Erro na API');
+
           const data = await response.json();
-          const address = data.address;
-          const bairro = address.suburb || address.neighbourhood || address.city_district || address.town || address.city || 'Localização obtida';
-          document.getElementById('inp-bairro').value = bairro;
+          const address = data.address || {};
+
+          // 🔹 Campos com fallback inteligente
+          const bairro =
+            address.suburb ||
+            address.neighbourhood ||
+            address.city_district ||
+            '';
+
+          const cidade =
+            address.city ||
+            address.town ||
+            address.village ||
+            '';
+
+          const uf = address.state || '';
+          const cep = address.postcode || '';
+
+          // 🔹 Preenche inputs se existirem
+          const bairroInput = document.getElementById('inp-bairro');
+          const cidadeInput = document.getElementById('cidade');
+          const ufInput = document.getElementById('uf');
+          const cepInput = document.getElementById('cep');
+
+          if (bairroInput) bairroInput.value = bairro;
+          if (cidadeInput) cidadeInput.value = cidade;
+          if (ufInput) ufInput.value = uf;
+          if (cepInput && cep) cepInput.value = cep;
+
           showToast('Localização obtida com sucesso!');
         } catch (error) {
+          console.error(error);
           showToast('Erro ao obter endereço. Tente novamente.');
         } finally {
           locationBtn.disabled = false;
           locationBtn.textContent = '📍 Usar minha localização';
         }
-      }, (error) => {
+      },
+      (error) => {
         let msg = 'Erro ao obter localização.';
+
         switch (error.code) {
           case error.PERMISSION_DENIED:
             msg = 'Permissão de localização negada.';
@@ -344,12 +385,18 @@ document.addEventListener('DOMContentLoaded', function() {
             msg = 'Timeout na obtenção da localização.';
             break;
         }
+
         showToast(msg);
         locationBtn.disabled = false;
         locationBtn.textContent = '📍 Usar minha localização';
-      });
-    });
-  }
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      }
+    );
+  });
+}
 
   const prevBtn = document.getElementById('prev-btn');
   if (prevBtn) {
