@@ -41,14 +41,19 @@ const iceFlavors = [
 ];
 
 const predefinedCombos = [
-  {
-    id:'combo1', name:'Combo Clássico', image:'images/combo1.jpg', doses:{jackdaniels:1}, energeticos:{redbull_473:1}, iceFlavors:{cocoleve_coco:1},
+  { id:'combo1', name:'Combo Clássico', image:'images/combo1.jpg', 
+    doses:{jackdaniels:1}, energeticos:{redbull_473:1}, iceFlavors:{cocoleve_coco:1},
+    active:false
   },
   {
-    id:'combo2', name:'Combo Tropical', image:'images/combo2.jpg', doses:{rajska:1, absolut:1}, energeticos:{redbull_473:1, monster_original:1}, iceFlavors:{cocoleve_maracuja:1, cocoleve_morango:1}
+    id:'combo2', name:'Combo Tropical', image:'images/combo2.jpg', 
+    doses:{rajska:1, absolut:1}, energeticos:{redbull_473:1, monster_original:1}, iceFlavors:{cocoleve_maracuja:1, cocoleve_morango:1},
+    active:false
   },
   {
-    id:'combo3', name:'Combo Premium', image:'images/combo3.jpg', doses:{jw_redlabel:1, jackdaniels_fire:1}, energeticos:{monster_mango_loco:2}, iceFlavors:{cocoleve_limao:1, cocoleve_hortela:1}
+    id:'combo3', name:'Combo Premium', image:'images/combo3.jpg', 
+    doses:{jw_redlabel:1, jackdaniels_fire:1}, energeticos:{monster_mango_loco:2}, iceFlavors:{cocoleve_limao:1, cocoleve_hortela:1},
+    active:false
   }
 ];
 
@@ -89,35 +94,62 @@ function showStep(step){
 function renderProducts(containerId,title,icon,products,stateKey){
   const sec=document.getElementById(containerId);
   if (!sec) return;
+  if(stateKey === 'doses'){
+    const activeCombos = predefinedCombos.filter(c => c.active);
+    title = activeCombos.length > 0 ? 'Combos prontos ou doses individuais' : 'Doses individuais';
+  }
   let html = `<h2 class="section-title"><span>${icon}</span> ${title}</h2>`;
   if(stateKey === 'doses'){
-    html += `<div class="grid">`;
-    predefinedCombos.forEach(c=>{
-      html += `
-        <div class="item-card combo-card">
-          <img src="${c.image}" alt="${c.name}" class="product-img">
-          <div class="name">${c.name}</div>
-        </div>
-      `;
-    });
-    html += `</div><h3 style="margin-top:1rem;">Ou monte seu combo personalizado:</h3><br>`;
+    const activeCombos = predefinedCombos.filter(c => c.active);
+    if(activeCombos.length > 0){
+      html += `<div class="grid">`;
+      activeCombos.forEach(c=>{
+        html += `
+          <div class="item-card combo-card" data-id="${c.id}">
+            <img src="${c.image}" alt="${c.name}" class="product-img">
+            <div class="name">${c.name}</div>
+          </div>
+        `;
+      });
+      html += `</div><h3 style="margin-top:1rem;">Ou monte seu combo personalizado:</h3><br>`;
+    } else {
+      html += `<h3>Monte seu combo personalizado:</h3><br>`;
+    }
   }
   html += `<div class="grid" id="${containerId}-grid"></div>`;
   sec.innerHTML = html;
   // Adicionar event listeners para combos
   if(stateKey === 'doses'){
-    const comboCards = sec.querySelectorAll('.combo-card');
-    comboCards.forEach((card, index) => {
-      card.addEventListener('click', () => {
-        const c = predefinedCombos[index];
-        state.doses = {...c.doses};
-        state.energeticos = {...c.energeticos};
-        state.ice = {};
-        for(const id in c.ice) state.ice[id] = c.ice[id];
-        currentStep = 2; // ir para etapa de gelo
-        update();
+    const activeCombos = predefinedCombos.filter(c => c.active);
+    if(activeCombos.length > 0){
+      const comboCards = sec.querySelectorAll('.combo-card');
+      comboCards.forEach((card) => {
+        card.addEventListener('click', () => {
+          const id = card.dataset.id;
+          const c = predefinedCombos.find(combo => combo.id === id);
+          if (c) {
+            state.doses = {...c.doses};
+            state.energeticos = {...c.energeticos};
+            state.ice = {};
+            for(const iceId in c.iceFlavors) state.ice[iceId] = c.iceFlavors[iceId];
+            currentStep = 2; // ir para etapa de gelo
+            update();
+          }
+        });
       });
-    });
+      const toggleComboBtns = sec.querySelectorAll('.toggle-combo-btn');
+      toggleComboBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.id;
+          const combo = predefinedCombos.find(c => c.id === id);
+          if (combo) {
+            combo.active = !combo.active;
+            update();
+          }
+        });
+      });
+    }
   }
   const grid=document.getElementById(`${containerId}-grid`);
   if (!grid) return;
