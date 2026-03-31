@@ -31,12 +31,13 @@ const energeticos = [
 ];
 
 const iceFlavors = [
-  {id:'limao',name:'Limão',price:7,image:'images/limao.jpg'},
-  {id:'morango',name:'Morango', price:7,image:'images/morango.jpg'},
-  {id:'maracuja',name:'Maracujá', price:7,image:'images/maracuja.jpg'},
-  {id:'abacaxi',name:'Abacaxi',price:7,image:'images/abacaxi.jpg'},
-  {id:'hortela',name:'Hortelã',price:7,image:'images/hortela.jpg'},
-  {id:'sem',name:'Sem gelo',price:0,image:'images/sem.jpg'}
+  {id:'cocoleve_coco',name:'Gelo Coco Leve Coco 190g',price:7,image:'images/gelos/coco.png'},
+  {id:'cocoleve_morango',name:'Gelo Coco Leve Morango 190g', price:7,image:'images/gelos/morango.png'},
+  {id:'cocoleve_maracuja',name:'Gelo Coco Leve Maracujá 190g', price:7,image:'images/gelos/maracuja.png'},
+  {id:'cocoleve_limao',name:'Gelo Coco Leve Limão 190g',price:7,image:'images/gelos/limao.png'},
+  {id:'cocoleve_melancia',name:'Gelo Coco Leve Melancia 190g',price:7,image:'images/gelos/melancia.png'},
+  {id:'cocoleve_macaverde',name:'Gelo Coco Leve Maçã Verde 190g',price:7,image:'images/gelos/macaverde.png'},
+  {id:'sem',name:'Sem gelo',price:0,image:'images/gelos/semgelo.png'}
 ];
 
 const predefinedCombos = [
