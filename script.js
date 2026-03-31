@@ -42,27 +42,13 @@ const iceFlavors = [
 
 const predefinedCombos = [
   {
-    id:'combo1',
-    name:'Combo Clássico',
-    image:'images/combo1.jpg',
-    doses:{jackdaniels:1},
-    energeticos:{redbull:1},
+    id:'combo1', name:'Combo Clássico', image:'images/combo1.jpg', doses:{jackdaniels:1}, energeticos:{redbull_473:1}, iceFlavors:{cocoleve_coco:1},
   },
   {
-    id:'combo2',
-    name:'Combo Tropical',
-    image:'images/combo2.jpg',
-    doses:{raiska:1, absolut:1},
-    energeticos:{redbull:1, monster:1},
-    ice:{maracuja:1, abacaxi:1}
+    id:'combo2', name:'Combo Tropical', image:'images/combo2.jpg', doses:{rajska:1, absolut:1}, energeticos:{redbull_473:1, monster_original:1}, iceFlavors:{cocoleve_maracuja:1, cocoleve_morango:1}
   },
   {
-    id:'combo3',
-    name:'Combo Premium',
-    image:'images/combo3.jpg',
-    doses:{tanqueray:1, tequila:1},
-    energeticos:{fusion:2},
-    ice:{limao:1, hortela:1}
+    id:'combo3', name:'Combo Premium', image:'images/combo3.jpg', doses:{jw_redlabel:1, jackdaniels_fire:1}, energeticos:{monster_mango_loco:2}, iceFlavors:{cocoleve_limao:1, cocoleve_hortela:1}
   }
 ];
 
