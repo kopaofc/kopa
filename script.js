@@ -1,58 +1,63 @@
 const WHATSAPP_NUMBER = '5554996472916';
 
 const doses = [
-  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.50,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
-  {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:true},
-  {id:'jackdaniels_fire',name:'Jack Daniel\'s Fire 50ml',price:14.70,image:'images/doses/jackdaniels_fire-50.png',active:true},
-  {id:'jackdaniels_honey',name:'Jack Daniel\'s Honey 50ml',price:15.30,image:'images/doses/jackdaniels_honey-50.png',active:true},
+  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.00,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
+  {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:false},
+  {id:'jackdaniels_fire',name:'Jack Daniel\'s Fire 50ml',price:14.70,image:'images/doses/jackdaniels_fire-50.png',active:false},
+  {id:'jackdaniels_honey',name:'Jack Daniel\'s Honey 50ml',price:15.30,image:'images/doses/jackdaniels_honey-50.png',active:false},
   
-  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:13.20,image:'images/doses/jw_redlabel-50.png',active:true},
-  {id:'jw_blacklabel',name:'Johnnie Walker Black Label 50ml',price:18.50,image:'images/doses/jw_blacklabel-50.png',active:true},  
+  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:11.75,image:'images/doses/jw_redlabel-50.png',active:true},
+  {id:'jw_blacklabel',name:'Johnnie Walker Black Label 50ml',price:18.50,image:'images/doses/jw_blacklabel-50.png',active:false},  
 
-  {id:'absolut',name:'Absolut Vodka 50ml',price:13.20,image:'images/doses/absolut-50.png',active:true},
-  {id:'rajska',name:'Rajska 50ml',price:7.80,image:'images/doses/rajska-50.png',active:true},
+  {id:'absolut',name:'Absolut Vodka 50ml',price:13.20,image:'images/doses/absolut-50.png',active:false},
+  {id:'rajska',name:'Rajska 50ml',price:5.90,image:'images/doses/rajska-50.png',active:true},
 ];
 
 const energeticos = [
-  {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:true},
-  {id:'redbull_355',name:'Red Bull 355ml',price:14,image:'images/redbull/redbull-355.png',active:true},
+  {id:'redbull_250',name:'Red Bull 250ml',price:13,image:'images/redbull/redbull-250.png',popular:true,active:true},
+  {id:'monster_original',name:'Monster Original 473ml',price:11.50,image:'images/monster/monster_original-473.png',active:true},
+  {id:'baly_tropical',name:'Baly Tropical 473ml',price:9.50,image:'images/baly/baly_tropical-473.png',active:true},
+  {id:'baly_melancia',name:'Baly Melancia 473ml',price:9.50,image:'images/baly/baly_melancia-473.png',active:true},
+  {id:'baly_morango_pessego',name:'Baly Morango e Pêssego 473ml',price:9.50,image:'images/baly/baly_morangopessego-473.png',active:true},
+  {id:'baly_freegells',name:'Baly Freegells Cereja 473ml',price:9.50,image:'images/baly/baly_freegells-473.png',active:true},
+  {id:'baly_tadala',name:'Baly Tadala 473ml',price:10.00,image:'images/baly/baly_tadala-473.png',active:true},
 
-  {id:'monster_original',name:'Monster Original 473ml',price:13,image:'images/monster/monster_original-473.png',active:true},
-  {id:'monster_absolutely_zero',name:'Monster Absolutely Zero 473ml',price:13,image:'images/monster/monster_absolutelyzero-473.png',active:true},
-  {id:'monster_ultra_white',name:'Monster Ultra White 473ml',price:13,image:'images/monster/monster_ultrawhite-473.png',active:true},
-  {id:'monster_mango_loco',name:'Monster Juice Mango Loco 473ml',price:13,image:'images/monster/monster_mangoloco-473.png',active:true},
 
-  {id:'baly_tradicional',name:'Baly Tradicional 473ml',price:10.50,image:'images/baly/baly_tradicional-473.png',active:true},
-  {id:'baly_tropical',name:'Baly Tropical 473ml',price:10.50,image:'images/baly/baly_tropical-473.png',active:true},
-  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:10.50,image:'images/baly/baly_macaverde-473.png',active:true},
-  {id:'baly_melancia',name:'Baly Melancia 473ml',price:10.50,image:'images/baly/baly_melancia-473.png',active:true},
-  {id:'baly_morango_pessego',name:'Baly Morango e Pêssego 473ml',price:10.50,image:'images/baly/baly_morangopessego-473.png',active:true},
-  {id:'baly_abacaxi_hortela',name:'Baly Abacaxi com Hortelã 473ml',price:10.50,image:'images/baly/baly_abacaxihortela-473.png',active:true},
+  {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:false},
+  {id:'redbull_355',name:'Red Bull 355ml',price:14,image:'images/redbull/redbull-355.png',active:false},
+
+  {id:'monster_absolutely_zero',name:'Monster Absolutely Zero 473ml',price:13,image:'images/monster/monster_absolutelyzero-473.png',active:false},
+  {id:'monster_ultra_white',name:'Monster Ultra White 473ml',price:13,image:'images/monster/monster_ultrawhite-473.png',active:false},
+  {id:'monster_mango_loco',name:'Monster Juice Mango Loco 473ml',price:13,image:'images/monster/monster_mangoloco-473.png',active:false},
+
+  {id:'baly_tradicional',name:'Baly Tradicional 473ml',price:10.50,image:'images/baly/baly_tradicional-473.png',active:false},
+  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:10.50,image:'images/baly/baly_macaverde-473.png',active:false},
+  {id:'baly_abacaxi_hortela',name:'Baly Abacaxi com Hortelã 473ml',price:10.50,image:'images/baly/baly_abacaxihortela-473.png',active:false},
 ];
 
 const iceFlavors = [
-  {id:'cocoleve_coco',name:'Gelo Coco Leve Coco 190g',price:7,image:'images/gelos/coco.png',active:true},
-  {id:'cocoleve_morango',name:'Gelo Coco Leve Morango 190g', price:7,image:'images/gelos/morango.png',active:true},
-  {id:'cocoleve_maracuja',name:'Gelo Coco Leve Maracujá 190g', price:7,image:'images/gelos/maracuja.png',active:true},
-  {id:'cocoleve_limao',name:'Gelo Coco Leve Limão 190g',price:7,image:'images/gelos/limao.png',active:true},
-  {id:'cocoleve_melancia',name:'Gelo Coco Leve Melancia 190g',price:7,image:'images/gelos/melancia.png',active:true},
-  {id:'cocoleve_macaverde',name:'Gelo Coco Leve Maçã Verde 190g',price:7,image:'images/gelos/macaverde.png',active:true},
+  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/coco.png',active:true},
+  {id:'vgelo_maracuja',name:'VGELO Maracujá', price:5,image:'images/gelos/morango.png',active:true},
+  {id:'vgelo_morango',name:'VGELO Morango', price:5,image:'images/gelos/maracuja.png',active:true},
+  {id:'vgelo_limao',name:'VGELO Maçã Verde',price:5,image:'images/gelos/limao.png',active:true},
+  {id:'vgelo_melancia',name:'VGELO Melancia',price:5,image:'images/gelos/melancia.png',active:true},
+  {id:'vgelo_macaverde',name:'VGELO Maçã Verde',price:5,image:'images/gelos/macaverde.png',active:true},
   {id:'sem',name:'Sem gelo',price:0,image:'images/gelos/semgelo.png',active:true}
 ];
 
 const predefinedCombos = [
-  { id:'combo1', name:'Combo Clássico', image:'images/combo1.jpg', 
-    doses:{jackdaniels:1}, energeticos:{redbull_473:1}, iceFlavors:{cocoleve_coco:1},
-    active:false
+  { id:'combo1', name:'Combo Jack + Red Bull + Gelo de Coco', image:'images/combo1.jpg', 
+    doses:{jackdaniels:1}, energeticos:{redbull_250:1}, iceFlavors:{vgelo_aguacoco:1},
+    active:true
   },
   {
     id:'combo2', name:'Combo Tropical', image:'images/combo2.jpg', 
-    doses:{rajska:1, absolut:1}, energeticos:{redbull_473:1, monster_original:1}, iceFlavors:{cocoleve_maracuja:1, cocoleve_morango:1},
+    doses:{rajska:1, absolut:1}, energeticos:{redbull_250:1, monster_original:1}, iceFlavors:{vgelo_maracuja:1, vgelo_morango:1},
     active:false
   },
   {
     id:'combo3', name:'Combo Premium', image:'images/combo3.jpg', 
-    doses:{jw_redlabel:1, jackdaniels_fire:1}, energeticos:{monster_mango_loco:2}, iceFlavors:{cocoleve_limao:1, cocoleve_hortela:1},
+    doses:{jw_redlabel:1, jackdaniels_fire:1}, energeticos:{monster_mango_loco:2}, iceFlavors:{vgelo_limao:1, vgelo_hortela:1},
     active:false
   }
 ];
@@ -132,7 +137,7 @@ function renderProducts(containerId,title,icon,products,stateKey){
             state.energeticos = {...c.energeticos};
             state.ice = {};
             for(const iceId in c.iceFlavors) state.ice[iceId] = c.iceFlavors[iceId];
-            currentStep = 2; // ir para etapa de gelo
+            currentStep = 3; // ir para etapa de infos
             update();
           }
         });
