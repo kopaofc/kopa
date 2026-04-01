@@ -22,7 +22,6 @@ const energeticos = [
   {id:'baly_freegells',name:'Baly Freegells Cereja 473ml',price:9.50,image:'images/baly/baly_freegells-473.png',active:true},
   {id:'baly_tadala',name:'Baly Tadala 473ml',price:10.00,image:'images/baly/baly_tadala-473.png',active:true},
 
-
   {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:false},
   {id:'redbull_355',name:'Red Bull 355ml',price:14,image:'images/redbull/redbull-355.png',active:false},
 
@@ -36,17 +35,17 @@ const energeticos = [
 ];
 
 const iceFlavors = [
-  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/coco.png',active:true},
-  {id:'vgelo_maracuja',name:'VGELO Maracujá', price:5,image:'images/gelos/morango.png',active:true},
-  {id:'vgelo_morango',name:'VGELO Morango', price:5,image:'images/gelos/maracuja.png',active:true},
-  {id:'vgelo_limao',name:'VGELO Maçã Verde',price:5,image:'images/gelos/limao.png',active:true},
-  {id:'vgelo_melancia',name:'VGELO Melancia',price:5,image:'images/gelos/melancia.png',active:true},
-  {id:'vgelo_macaverde',name:'VGELO Maçã Verde',price:5,image:'images/gelos/macaverde.png',active:true},
+  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/vgelo/vgelo-aguacoco.png',active:true},
+  {id:'vgelo_maracuja',name:'VGELO Maracujá', price:5,image:'images/gelos/vgelo/vgelo-maracuja.png',active:true},
+  {id:'vgelo_morango',name:'VGELO Morango', price:5,image:'images/gelos/vgelo/vgelo-morango.png',active:true},
+  {id:'vgelo_limao',name:'GELO Limão',price:5,image:'images/gelos/vgelo/gelo-limao.png',active:true},
+  {id:'vgelo_melancia',name:'VGELO Melancia',price:5,image:'images/gelos/vgelo/vgelo-melancia.png',active:true},
+  {id:'vgelo_macaverde',name:'VGELO Maçã Verde',price:5,image:'images/gelos/vgelo/vgelo-macaverde.png',active:true},
   {id:'sem',name:'Sem gelo',price:0,image:'images/gelos/semgelo.png',active:true}
 ];
 
 const predefinedCombos = [
-  { id:'combo1', name:'Combo Jack + Red Bull + Gelo de Coco', image:'images/combo1.jpg', 
+  { id:'combo1', name:'Combo Jack + Red Bull + Gelo de Coco', image:'images/combos/combo1.png', 
     doses:{jackdaniels:1}, energeticos:{redbull_250:1}, iceFlavors:{vgelo_aguacoco:1},
     active:true
   },
