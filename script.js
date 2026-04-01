@@ -157,8 +157,11 @@ function renderProducts(containerId,title,icon,products,stateKey){
   }
   const grid=document.getElementById(`${containerId}-grid`);
   if (!grid) return;
+  const totalDoses = getTotalDoses();
+  const totalEn = Object.values(state.energeticos).reduce((a,b)=>a+b,0);
   products.filter(p => p.active).forEach(p=>{
     const qty=state[stateKey][p.id]||0;
+    const canInc = stateKey === 'energeticos' ? totalEn < totalDoses : true;
     const card=document.createElement('div');
     card.className='item-card'+(qty>0?' selected':'');
     card.innerHTML=`
@@ -169,12 +172,13 @@ function renderProducts(containerId,title,icon,products,stateKey){
       ${qty>0?`<div class="qty-controls">
         <button class="qty-btn" data-id="${p.id}" data-action="dec">−</button>
         <span class="qty-val">${qty}</span>
-        <button class="qty-btn" data-id="${p.id}" data-action="inc">+</button>
+        <button class="qty-btn" data-id="${p.id}" data-action="inc" ${!canInc ? 'disabled' : ''}>+</button>
       </div>`:''}
     `;
     card.addEventListener('click',e=>{
       if(e.target.closest('.qty-btn'))return;
       if(qty===0){
+        if(stateKey === 'energeticos' && totalEn >= totalDoses) return;
         state[stateKey][p.id]=1;
         update();
       } else {
@@ -187,8 +191,13 @@ function renderProducts(containerId,title,icon,products,stateKey){
       btn.addEventListener('click',e=>{
         e.stopPropagation();
         const id=btn.dataset.id,action=btn.dataset.action;
-        if(action==='inc')state[stateKey][id]++;
-        else{state[stateKey][id]--;if(state[stateKey][id]<=0)delete state[stateKey][id];}
+        if(action==='inc'){
+          if(stateKey === 'energeticos' && totalEn >= totalDoses) return;
+          state[stateKey][id]++;
+        } else{
+          state[stateKey][id]--;
+          if(state[stateKey][id]<=0)delete state[stateKey][id];
+        }
         update();
       });
     });
@@ -220,8 +229,10 @@ function renderIce(){
   sec.innerHTML=`<h2 class="section-title"><span>🧊</span> Escolha os gelos (mínimo ${totalDoses})</h2><div class="grid" id="ice-grid"></div>`;
   const grid=document.getElementById('ice-grid');
   if (!grid) return;
+  const totalIce = Object.entries(state.ice).filter(([key]) => key !== 'sem').reduce((acc, [, val]) => acc + val, 0);
   iceFlavors.filter(f => f.active).forEach(f=>{
     const qty=state.ice[f.id]||0;
+    const canInc = totalIce < totalDoses;
     const card=document.createElement('div');
     card.className='item-card'+(qty>0?' selected':'');
     card.innerHTML=`
@@ -231,13 +242,21 @@ function renderIce(){
       ${qty>0?`<div class="qty-controls">
         <button class="qty-btn" data-id="${f.id}" data-action="dec">−</button>
         <span class="qty-val">${qty}</span>
-        <button class="qty-btn" data-id="${f.id}" data-action="inc">+</button>
+        <button class="qty-btn" data-id="${f.id}" data-action="inc" ${!canInc ? 'disabled' : ''}>+</button>
       </div>`:''}
     `;
     card.addEventListener('click',e=>{
       if(e.target.closest('.qty-btn'))return;
       if(qty===0){
-        state.ice[f.id]=1;
+        if(f.id === 'sem'){
+          state.ice = {'sem':1};
+        } else {
+          if(state.ice['sem']){
+            delete state.ice['sem'];
+          }
+          if(totalIce >= totalDoses) return;
+          state.ice[f.id]=1;
+        }
         update();
       } else {
         delete state.ice[f.id];
@@ -249,8 +268,13 @@ function renderIce(){
       btn.addEventListener('click',e=>{
         e.stopPropagation();
         const id=btn.dataset.id,action=btn.dataset.action;
-        if(action==='inc')state.ice[id]++;
-        else{state.ice[id]--;if(state.ice[id]<=0)delete state.ice[id];}
+        if(action==='inc'){
+          if(totalIce >= totalDoses) return;
+          state.ice[id]++;
+        } else{
+          state.ice[id]--;
+          if(state.ice[id]<=0)delete state.ice[id];
+        }
         update();
       });
     });
@@ -390,8 +414,8 @@ if (nextBtn) {
         const totalEn = Object.values(state.energeticos)
           .reduce((a, b) => a + b, 0);
 
-        if (totalEn < totalDoses) {
-          showToast(`Selecione pelo menos ${totalDoses} energético(s)`);
+        if (totalEn > totalDoses) {
+          showToast(`Selecione no máximo ${totalDoses} energético(s)`);
           return;
         }
       }
@@ -402,6 +426,11 @@ if (nextBtn) {
           .reduce((acc, [, val]) => acc + val, 0);
 
         const semGelo = state.ice['sem'] > 0;
+
+        if (totalIce > totalDoses) {
+          showToast(`Selecione no máximo ${totalDoses} gelo(s) saborizado(s)`);
+          return;
+        }
 
         if (totalIce === 0 && !semGelo) {
           showToast('Selecione pelo menos 1 gelo saborizado ou "Sem gelo"');
