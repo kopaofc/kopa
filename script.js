@@ -34,7 +34,7 @@ const energeticos = [
   {id:'baly_tadala',name:'Baly Tadala 473ml',price:10.00,image:'images/baly/baly_tadala-473.png',active:true},
   {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:9.50,image:'images/baly/baly_macaverde-473.png',active:true},
 
-  
+
   {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:false},
   {id:'redbull_355',name:'Red Bull 355ml',price:14,image:'images/redbull/redbull-355.png',active:false},
 
@@ -47,7 +47,7 @@ const energeticos = [
 ];
 
 const iceFlavors = [
-  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/vgelo/vgelo-aguacoco.png',active:true},
+  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/vgelo/vgelo-aguacoco.png',popular:true, active:true},
   {id:'vgelo_maracuja',name:'VGELO Maracujá', price:5,image:'images/gelos/vgelo/vgelo-maracuja.png',active:true},
   {id:'vgelo_morango',name:'VGELO Morango', price:5,image:'images/gelos/vgelo/vgelo-morango.png',active:true},
   {id:'vgelo_limao',name:'GELO Limão',price:5,image:'images/gelos/vgelo/gelo-limao.png',active:true},
@@ -59,7 +59,7 @@ const iceFlavors = [
 const predefinedCombos = [
   { id:'combo1', name:'Combo Jack + Red Bull + Gelo de Coco', image:'images/combos/combo1.png', 
     doses:{jackdaniels:1}, energeticos:{redbull_250:1}, iceFlavors:{vgelo_aguacoco:1},
-    active:true
+    popular:true, active:true
   },
   {
     id:'combo2', name:'Combo Tropical', image:'images/combo2.jpg', 
