@@ -1,16 +1,27 @@
 const WHATSAPP_NUMBER = '5554996472916';
 
+const OPEN_HOUR = 11;
+const CLOSE_HOUR = 2;
+
+function isOpen() {
+  const now = new Date();
+  const hour = now.getHours();
+  return hour >= OPEN_HOUR || hour < CLOSE_HOUR;
+}
+
 const doses = [
   {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.00,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
+  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:11.75,image:'images/doses/jw_redlabel-50.png',active:true},
+  {id:'rajska',name:'Rajska 50ml',price:5.90,image:'images/doses/rajska-50.png',active:true},
+
+
   {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:false},
   {id:'jackdaniels_fire',name:'Jack Daniel\'s Fire 50ml',price:14.70,image:'images/doses/jackdaniels_fire-50.png',active:false},
   {id:'jackdaniels_honey',name:'Jack Daniel\'s Honey 50ml',price:15.30,image:'images/doses/jackdaniels_honey-50.png',active:false},
   
-  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:11.75,image:'images/doses/jw_redlabel-50.png',active:true},
   {id:'jw_blacklabel',name:'Johnnie Walker Black Label 50ml',price:18.50,image:'images/doses/jw_blacklabel-50.png',active:false},  
 
   {id:'absolut',name:'Absolut Vodka 50ml',price:13.20,image:'images/doses/absolut-50.png',active:false},
-  {id:'rajska',name:'Rajska 50ml',price:5.90,image:'images/doses/rajska-50.png',active:true},
 ];
 
 const energeticos = [
@@ -21,7 +32,9 @@ const energeticos = [
   {id:'baly_morango_pessego',name:'Baly Morango e Pêssego 473ml',price:9.50,image:'images/baly/baly_morangopessego-473.png',active:true},
   {id:'baly_freegells',name:'Baly Freegells Cereja 473ml',price:9.50,image:'images/baly/baly_freegells-473.png',active:true},
   {id:'baly_tadala',name:'Baly Tadala 473ml',price:10.00,image:'images/baly/baly_tadala-473.png',active:true},
+  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:9.50,image:'images/baly/baly_macaverde-473.png',active:true},
 
+  
   {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:false},
   {id:'redbull_355',name:'Red Bull 355ml',price:14,image:'images/redbull/redbull-355.png',active:false},
 
@@ -30,7 +43,6 @@ const energeticos = [
   {id:'monster_mango_loco',name:'Monster Juice Mango Loco 473ml',price:13,image:'images/monster/monster_mangoloco-473.png',active:false},
 
   {id:'baly_tradicional',name:'Baly Tradicional 473ml',price:10.50,image:'images/baly/baly_tradicional-473.png',active:false},
-  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:10.50,image:'images/baly/baly_macaverde-473.png',active:false},
   {id:'baly_abacaxi_hortela',name:'Baly Abacaxi com Hortelã 473ml',price:10.50,image:'images/baly/baly_abacaxihortela-473.png',active:false},
 ];
 
@@ -371,7 +383,16 @@ function updateButton(){
   const hasDoses=Object.values(state.doses).some(q=>q>0);
   const hasEn=Object.values(state.energeticos).some(q=>q>0);
   const hasIce=Object.values(state.ice).some(q=>q>0);
-  waBtn.disabled=!(hasDoses||hasEn||hasIce);
+  const hasItems = hasDoses || hasEn || hasIce;
+  waBtn.disabled = !(hasItems && isOpen());
+}
+
+function updateHeroStatus(){
+  const statusEl = document.getElementById('status-hero');
+  if (statusEl) {
+    const hoursText = `${OPEN_HOUR}h às ${CLOSE_HOUR}h`;
+    statusEl.innerHTML = isOpen() ? `<span style="color: #4CAF50;">🟢 Aberto agora (${hoursText})</span>` : `<span style="color: #f44336;">🔴 Fechado (${hoursText})</span>`;
+  }
 }
 
 function update(){
@@ -382,6 +403,7 @@ function update(){
   renderSummary();
   renderCart();
   updateButton();
+  updateHeroStatus();
   showStep(currentStep);
 }
 
@@ -453,6 +475,11 @@ if (waBtn) {
 
     if (!name || !address) {
       showToast('Preencha seu nome e endereço');
+      return;
+    }
+
+    if (!isOpen()) {
+      showToast(`Estamos fechados no momento. Horário de funcionamento: ${OPEN_HOUR}h às ${CLOSE_HOUR}h.`);
       return;
     }
 
