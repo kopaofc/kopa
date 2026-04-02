@@ -1,18 +1,26 @@
 const WHATSAPP_NUMBER = '5554996472916';
 
-const OPEN_HOUR = 19;
-const CLOSE_HOUR = 2;
-
 function isOpen() {
   const now = new Date();
+  const day = now.getDay();
   const hour = now.getHours();
-  return hour >= OPEN_HOUR || hour < CLOSE_HOUR;
+
+  // Segunda (1) a quarta (3): 08h às 20h
+  if (day === 1 || day === 2 || day === 3) {
+    return hour >= 8 && hour < 20;
+  }
+  // Quinta (4) a sábado (6): 18h às 00h
+  if (day === 4 || day === 5 || day === 6) {
+    return hour >= 18 && hour < 24;
+  }
+
+  return false;
 }
 
 const doses = [
   {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.50,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
   {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:12.00,image:'images/doses/jw_redlabel-50.png',active:true},
-  {id:'rajska',name:'Rajska 50ml',price:6.00,image:'images/doses/rajska-50.png',active:true},
+  {id:'rajska',name:'Rajska 50ml',price:4.50,image:'images/doses/rajska-50.png',active:true},
 
 
   {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:false},
@@ -389,10 +397,45 @@ function updateButton(){
 
 function updateHeroStatus(){
   const statusEl = document.getElementById('status-hero');
-  if (statusEl) {
-    const hoursText = `${OPEN_HOUR}h às ${CLOSE_HOUR}h`;
-    statusEl.innerHTML = isOpen() ? `<span style="color: #4CAF50;">🟢 Aberto agora (${hoursText})</span>` : `<span style="color: #f44336;">🔴 Fechado (${hoursText})</span>`;
+  if (!statusEl) return;
+
+  const now = new Date();
+  const day = now.getDay();
+
+  let text = '';
+
+  // Segunda (1) a quarta (3)
+  if (day === 1 || day === 2 || day === 3) {
+    if (isOpen()) {
+      text = `🟢 <strong>Aceitando Pedidos!</strong> (08h às 20h)<br>
+              <small>🚚 Entregas começam a partir de quinta-feira</small>`;
+    } else {
+      text = `🔴 <strong>Pausa nos pedidos agora</strong><br>
+              <small>📅 Atendimento: 08h às 20h (Seg a Qua)<br>
+              🚚 Entregas: Quinta a Domingo</small>`;
+    }
   }
+
+  // Quinta (4) a sábado (6)
+  else if (day === 4 || day === 5 || day === 6) {
+    if (isOpen()) {
+      text = `🟢 <strong>Estamos Abertos!</strong><br>
+              <small>🛵 Pedidos e entregas a todo vapor (18h às 00h)</small>`;
+    } else {
+      text = `🔴 <strong>Fechados no momento</strong><br>
+              <small>⏰ Voltamos às 18h (Quinta a Sábado)</small>`;
+    }
+  }
+
+  // Quarta (3)
+  else {
+    text = `😴 <strong>Dia de recarregar as energias! Fechados hoje.</strong><br>
+            <small>📅 Pedidos: Seg a Qua (08h às 20h)<br>
+            🚚 Entregas: Qui a Sáb</small>`;
+  }
+
+  // A tag <span> agora pode ser facilmente estilizada no seu CSS
+  statusEl.innerHTML = `<span class="status-message">${text}</span>`;
 }
 
 function update(){
@@ -475,11 +518,6 @@ if (waBtn) {
 
     if (!name || !address) {
       showToast('Preencha seu nome e endereço');
-      return;
-    }
-
-    if (!isOpen()) {
-      showToast(`Estamos fechados no momento. Horário de funcionamento: ${OPEN_HOUR}h às ${CLOSE_HOUR}h.`);
       return;
     }
 
