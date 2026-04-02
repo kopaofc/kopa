@@ -1,6 +1,6 @@
 const WHATSAPP_NUMBER = '5554996472916';
 
-const OPEN_HOUR = 11;
+const OPEN_HOUR = 19;
 const CLOSE_HOUR = 2;
 
 function isOpen() {
@@ -10,9 +10,9 @@ function isOpen() {
 }
 
 const doses = [
-  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.00,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
-  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:11.75,image:'images/doses/jw_redlabel-50.png',active:true},
-  {id:'rajska',name:'Rajska 50ml',price:5.90,image:'images/doses/rajska-50.png',active:true},
+  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.50,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
+  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:12.00,image:'images/doses/jw_redlabel-50.png',active:true},
+  {id:'rajska',name:'Rajska 50ml',price:6.00,image:'images/doses/rajska-50.png',active:true},
 
 
   {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:false},
@@ -47,13 +47,13 @@ const energeticos = [
 ];
 
 const iceFlavors = [
-  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:5,image:'images/gelos/vgelo/vgelo-aguacoco.png',popular:true, active:true},
-  {id:'vgelo_maracuja',name:'VGELO Maracujá', price:5,image:'images/gelos/vgelo/vgelo-maracuja.png',active:true},
-  {id:'vgelo_morango',name:'VGELO Morango', price:5,image:'images/gelos/vgelo/vgelo-morango.png',active:true},
-  {id:'vgelo_limao',name:'GELO Limão',price:5,image:'images/gelos/vgelo/gelo-limao.png',active:true},
-  {id:'vgelo_melancia',name:'VGELO Melancia',price:5,image:'images/gelos/vgelo/vgelo-melancia.png',active:true},
-  {id:'vgelo_macaverde',name:'VGELO Maçã Verde',price:5,image:'images/gelos/vgelo/vgelo-macaverde.png',active:true},
-  {id:'sem',name:'Sem gelo',price:0,image:'images/gelos/semgelo.png',active:true}
+  {id:'vgelo_aguacoco',name:'VGELO Água de Coco',price:6,image:'images/gelos/vgelo/vgelo-aguacoco.png',popular:true, active:true},
+  {id:'vgelo_maracuja',name:'VGELO Maracujá', price:6,image:'images/gelos/vgelo/vgelo-maracuja.png',active:true},
+  {id:'vgelo_morango',name:'VGELO Morango', price:6,image:'images/gelos/vgelo/vgelo-morango.png',active:true},
+  {id:'vgelo_limao',name:'GELO Limão',price:6,image:'images/gelos/vgelo/gelo-limao.png',active:true},
+  {id:'vgelo_melancia',name:'VGELO Melancia',price:6,image:'images/gelos/vgelo/vgelo-melancia.png',active:true},
+  {id:'vgelo_macaverde',name:'VGELO Maçã Verde',price:6,image:'images/gelos/vgelo/vgelo-macaverde.png',active:true},
+  {id:'sem',name:'Sem gelo',price:0,image:'images/gelos/semgelo.png',active:false}
 ];
 
 const predefinedCombos = [
