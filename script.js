@@ -1,4 +1,4 @@
-const WHATSAPP_NUMBER = '5554996472916';
+const WHATSAPP_NUMBER = '5554999117907';
 
 function isOpen() {
   const now = new Date();
