@@ -18,9 +18,9 @@ function isOpen() {
 }
 
 const doses = [
-  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:14.50,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
-  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:12.00,image:'images/doses/jw_redlabel-50.png',active:true},
-  {id:'rajska',name:'Rajska 50ml',price:4.50,image:'images/doses/rajska-50.png',active:true},
+  {id:'jackdaniels',name:'Jack Daniel\'s 50ml',price:11.00,image:'images/doses/jackdaniels-50.png',popular:true,active:true},
+  {id:'jw_redlabel',name:'Johnnie Walker Red Label 50ml',price:9.00,image:'images/doses/jw_redlabel-50.png',active:true},
+  {id:'rajska',name:'Rajska 50ml',price:5.00,image:'images/doses/rajska-50.png',active:true},
 
 
   {id:'jackdaniels_macaverde',name:'Jack Daniel\'s Apple 50ml',price:14.50,image:'images/doses/jackdaniels_macaverde-50.png',active:false},
@@ -34,13 +34,13 @@ const doses = [
 
 const energeticos = [
   {id:'redbull_250',name:'Red Bull 250ml',price:13,image:'images/redbull/redbull-250.png',popular:true,active:true},
-  {id:'monster_original',name:'Monster Original 473ml',price:11.50,image:'images/monster/monster_original-473.png',active:true},
-  {id:'baly_tropical',name:'Baly Tropical 473ml',price:9.50,image:'images/baly/baly_tropical-473.png',active:true},
-  {id:'baly_melancia',name:'Baly Melancia 473ml',price:9.50,image:'images/baly/baly_melancia-473.png',active:true},
-  {id:'baly_morango_pessego',name:'Baly Morango e Pêssego 473ml',price:9.50,image:'images/baly/baly_morangopessego-473.png',active:true},
-  {id:'baly_freegells',name:'Baly Freegells Cereja 473ml',price:9.50,image:'images/baly/baly_freegells-473.png',active:true},
-  {id:'baly_tadala',name:'Baly Tadala 473ml',price:10.00,image:'images/baly/baly_tadala-473.png',active:true},
-  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:9.50,image:'images/baly/baly_macaverde-473.png',active:true},
+  {id:'monster_original',name:'Monster Original 473ml',price:11.00,image:'images/monster/monster_original-473.png',active:true},
+  {id:'baly_tropical',name:'Baly Tropical 473ml',price:9.00,image:'images/baly/baly_tropical-473.png',active:true},
+  {id:'baly_melancia',name:'Baly Melancia 473ml',price:9.00,image:'images/baly/baly_melancia-473.png',active:true},
+  {id:'baly_morango_pessego',name:'Baly Morango e Pêssego 473ml',price:9.00,image:'images/baly/baly_morangopessego-473.png',active:true},
+  {id:'baly_freegells',name:'Baly Freegells Cereja 473ml',price:9.00,image:'images/baly/baly_freegells-473.png',active:true},
+  {id:'baly_tadala',name:'Baly Tadala 473ml',price:9.50,image:'images/baly/baly_tadala-473.png',active:true},
+  {id:'baly_maca_verde',name:'Baly Maçã Verde 473ml',price:9.00,image:'images/baly/baly_macaverde-473.png',active:true},
 
 
   {id:'redbull_473',name:'Red Bull 473ml',price:22,image:'images/redbull/redbull-473.png',popular:true,active:false},
