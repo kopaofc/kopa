@@ -392,7 +392,8 @@ function updateButton(){
   const hasEn=Object.values(state.energeticos).some(q=>q>0);
   const hasIce=Object.values(state.ice).some(q=>q>0);
   const hasItems = hasDoses || hasEn || hasIce;
-  waBtn.disabled = !(hasItems && isOpen());
+  //waBtn.disabled = !(hasItems && isOpen());
+  waBtn.disabled = false;
 }
 
 function updateHeroStatus(){
